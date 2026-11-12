@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mohit Panaliya — ERP Architect & Systems Developer</title>
+  <meta name="description" content="Mohit Panaliya — ERP Developer & Systems Builder. Frappe/ERPNext, Rust, Vue, Tauri. I build software that runs real businesses." />
+  <meta name="author" content="Mohit Panaliya" />
+  <meta property="og:title" content="Mohit Panaliya — ERP Architect & Systems Developer" />
+  <meta property="og:description" content="I build ERPs, developer tools and web experiences that run real businesses. Frappe/ERPNext · Rust · Vue · Tauri." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/img/avatar.png" />
+  <meta name="theme-color" content="#16121a" />
+  <link rel="icon" href="assets/img/avatar.png" />
+  <script>
+    /* set theme before first paint to avoid a flash */
+    (function () {
+      var t = "dark";
+      try { var s = localStorage.getItem("mp-theme"); if (s === "light" || s === "dark") t = s; } catch (e) {}
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+
+  <!-- ══════════ GRAIN + PETALS + PROGRESS ══════════ -->
+  <div class="grain" aria-hidden="true"></div>
+  <canvas id="petals" aria-hidden="true"></canvas>
+  <div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
+
+  <!-- ══════════ PRELOADER ══════════ -->
+  <div id="preloader" aria-hidden="true">
+    <div class="pre-center">
+      <div class="pre-name"><span>M</span><span>O</span><span>H</span><span>I</span><span>T</span><span class="pre-space">&nbsp;</span><span>P</span><span>A</span><span>N</span><span>A</span><span>L</span><span>I</span><span>Y</span><span>A</span></div>
+      <div class="pre-sub">モヒト・パナリヤ — ERP · RUST · WEB</div>
+    </div>
+    <div class="pre-count"><span id="preCount">00</span></div>
+  </div>
+
+  <!-- ══════════ CURSOR ══════════ -->
+  <div class="cursor-dot" aria-hidden="true"></div>
+  <div class="cursor-ring" aria-hidden="true"><span class="cursor-label"></span></div>
+
+  <!-- ══════════ NAV ══════════ -->
+  <header class="nav" id="nav">
+    <a href="#hero" class="nav-logo" data-cursor="link" data-sound="tick">MP<span class="accent">.</span></a>
+    <div class="nav-right">
+      <button class="theme-toggle" id="themeToggle" data-cursor="link" aria-label="Toggle light / dark theme">
+        <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.6M12 18.9v2.6M2.5 12h2.6M18.9 12h2.6M4.9 4.9l1.9 1.9M17.2 17.2l1.9 1.9M19.1 4.9l-1.9 1.9M6.8 17.2l-1.9 1.9"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.4 14.2A8.3 8.3 0 0 1 9.8 3.6a8.3 8.3 0 1 0 10.6 10.6Z"/></svg>
+      </button>
+      <button class="sound-toggle" id="soundToggle" data-cursor="link" aria-label="Toggle sound">
+        <span class="sb"><span class="sb-bar"></span><span class="sb-bar"></span><span class="sb-bar"></span><span class="sb-bar"></span></span>
+        <span class="sound-label">SOUND</span>
+      </button>
+      <button class="menu-toggle" id="menuToggle" data-cursor="link" aria-label="Menu">
+        <span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ══════════ MENU OVERLAY ══════════ -->
+  <nav class="menu" id="menu">
+    <div class="menu-inner">
+      <a class="menu-link" href="#about" data-cursor="link"><span class="menu-idx">01</span><span class="menu-word" data-hover="About">About</span></a>
+      <a class="menu-link" href="#work" data-cursor="link"><span class="menu-idx">02</span><span class="menu-word" data-hover="Work">Work</span></a>
+      <a class="menu-link" href="#craft" data-cursor="link"><span class="menu-idx">03</span><span class="menu-word" data-hover="Craft">Craft</span></a>
+      <a class="menu-link" href="#journey" data-cursor="link"><span class="menu-idx">04</span><span class="menu-word" data-hover="Journey">Journey</span></a>
+      <a class="menu-link" href="#contact" data-cursor="link"><span class="menu-idx">05</span><span class="menu-word" data-hover="Contact">Contact</span></a>
+    </div>
+    <div class="menu-foot">
+      <span>Anand, Gujarat, IN</span><span class="accent">●</span><span>Available for work</span>
+    </div>
+  </nav>
+
+  <main id="smooth-wrapper">
+    <div id="smooth-content">
+
+      <!-- ══════════ HERO ══════════ -->
+      <section class="hero" id="hero">
+        <canvas id="webgl"></canvas>
+        <div class="hero-vignette"></div>
+        <div class="hero-vertical" aria-hidden="true">桜の下で、システムを組む<span class="jp-sub">モヒト・パナリヤ</span></div>
+        <div class="hero-content">
+          <div class="hero-badge hero-fade"><span class="pulse"></span> OPEN TO WORK — ANAND, GUJARAT, IN</div>
+          <h1 class="hero-title" aria-label="Mohit Panaliya">
+            <span class="ht-line"><span class="ht-chars" data-split>MOHIT</span></span>
+            <span class="ht-line ht-line-2"><span class="ht-chars stroke" data-split>PANALIYA</span></span>
+          </h1>
+          <div class="hero-cta hero-fade">
+            <a class="btn btn-solid" href="mailto:mohitpanaliya0@gmail.com?subject=Project%20inquiry%20via%20portfolio" data-cursor="link" data-sound="boom">CONTACT ME →</a>
+            <a class="btn btn-ghost" href="assets/img/Mohit_Panaliya_Resume.pdf" target="_blank" rel="noopener" data-cursor="link" data-sound="tick">RÉSUMÉ ↗</a>
+          </div>
+          <div class="hero-meta hero-fade">
+            <div class="hm-left">
+              <p class="hero-tag">I architect <em>ERPs</em> &amp; systems that run real businesses — Frappe/ERPNext, Rust tooling, and web experiences with a pulse.</p>
+            </div>
+            <div class="hm-right">
+              <div class="hero-roles">
+                <span>ERP DEVELOPER</span><span>RUST BUILDER</span><span>WEB CRAFTSMAN</span><span>DATA ANALYST</span>
+              </div>
+              <div class="hero-scroll">
+                <span>SCROLL</span>
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 4v16m0 0l-6-6m6 6l6-6"/></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════ ABOUT (pinned statement) ══════════ -->
+      <section class="about" id="about">
+        <div class="about-pin">
+          <p class="statement">
+            <span data-words>Most developers ship code.</span>
+            <span data-words>I ship systems that businesses run on —</span>
+            <span data-words>oil distribution ERPs, offline commerce PWAs,</span>
+            <span data-words>and Rust tooling that never sleeps.</span>
+          </p>
+          <div class="about-grid">
+            <div class="ag-item reveal-fade"><h3>Currently</h3><p>ERP Developer at <em>Gtree.in</em> — building Frappe/ERPNext products used by real businesses daily.</p></div>
+            <div class="ag-item reveal-fade"><h3>Previously</h3><p>Freelance web developer &amp; data analyst intern — SAP HANA, ETL pipelines, PL/SQL migrations.</p></div>
+            <div class="ag-item reveal-fade"><h3>Beyond code</h3><p>BE in IT from GTU — 8.98 CGPA. Linux-first, terminal-driven, allergic to slow software.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════ MARQUEE ══════════ -->
+      <div class="marquee" aria-hidden="true">
+        <div class="marquee-track" id="marqueeTrack">
+          <span>FRAPPE <i>◆</i> ERPNEXT <i>◆</i> RUST <i>◆</i> PYTHON <i>◆</i> VUE <i>◆</i> SVELTE <i>◆</i> TAURI <i>◆</i> KOTLIN <i>◆</i> JAVASCRIPT <i>◆</i> TAILWIND <i>◆</i> SAP HANA <i>◆</i> SQL <i>◆</i> LINUX <i>◆</i>&nbsp;</span>
+          <span>FRAPPE <i>◆</i> ERPNEXT <i>◆</i> RUST <i>◆</i> PYTHON <i>◆</i> VUE <i>◆</i> SVELTE <i>◆</i> TAURI <i>◆</i> KOTLIN <i>◆</i> JAVASCRIPT <i>◆</i> TAILWIND <i>◆</i> SAP HANA <i>◆</i> SQL <i>◆</i> LINUX <i>◆</i>&nbsp;</span>
+        </div>
+      </div>
+
+      <!-- ══════════ WORK (horizontal scroll) ══════════ -->
+      <section class="work" id="work">
+        <div class="work-head">
+          <div class="section-tag reveal-fade">01 — SELECTED WORK</div>
+          <h2 class="section-title reveal-fade">Systems in<br /><span class="stroke">the wild</span></h2>
+          <p class="work-hint reveal-fade">DRAG / SCROLL SIDEWAYS →</p>
+          <p class="work-synced reveal-fade" id="ghStatus">◌ CONNECTING TO GITHUB…</p>
+        </div>
+        <div class="work-track" id="workTrack"><!-- panels injected --></div>
+      </section>
+
+      <!-- ══════════ CRAFT ══════════ -->
+      <section class="craft" id="craft">
+        <div class="section-tag reveal-fade">02 — CAPABILITIES</div>
+        <h2 class="section-title reveal-fade">What I<br /><span class="stroke">bring</span></h2>
+        <div class="craft-list">
+          <div class="craft-row reveal-fade" data-cursor="link">
+            <span class="cr-idx">A</span>
+            <div class="cr-body"><h3>ERP &amp; Business Systems</h3><p>Frappe Framework, ERPNext, Odoo — custom apps, dashboards, workflows, migrations, deployment. Domain apps for oil distribution, EV workshops, dairy, e-commerce.</p></div>
+            <span class="cr-arrow">↗</span>
+          </div>
+          <div class="craft-row reveal-fade" data-cursor="link">
+            <span class="cr-idx">B</span>
+            <div class="cr-body"><h3>Rust &amp; Systems Tooling</h3><p>Single-binary gateways, dependency analyzers, relays, data-transfer engines. Performance-obsessed, memory-conscious, zero-bloat tooling.</p></div>
+            <span class="cr-arrow">↗</span>
+          </div>
+          <div class="craft-row reveal-fade" data-cursor="link">
+            <span class="cr-idx">C</span>
+            <div class="cr-body"><h3>Web &amp; Cross-platform</h3><p>Vue/Ionic PWAs, Svelte + Tauri desktop apps, responsive sites, offline-first architecture. From URL to installable app.</p></div>
+            <span class="cr-arrow">↗</span>
+          </div>
+          <div class="craft-row reveal-fade" data-cursor="link">
+            <span class="cr-idx">D</span>
+            <div class="cr-body"><h3>Data &amp; Analytics</h3><p>SAP HANA modeling — attribute, analytical &amp; calculation views. ETL, SQLScript, Oracle→HANA migrations, dashboards that answer questions.</p></div>
+            <span class="cr-arrow">↗</span>
+          </div>
+        </div>
+
+        <!-- stats band -->
+        <div class="stats" id="stats">
+          <div class="stat reveal-fade"><span class="stat-num" data-count="32">0</span><span class="stat-lbl">Public repos</span></div>
+          <div class="stat reveal-fade"><span class="stat-num" data-count="11">0</span><span class="stat-lbl">Stars earned</span></div>
+          <div class="stat reveal-fade"><span class="stat-num" data-count="22">0</span><span class="stat-lbl">Forks by others</span></div>
+          <div class="stat reveal-fade"><span class="stat-num" data-count="7">0</span><span class="stat-lbl">Languages</span></div>
+          <div class="stat reveal-fade"><span class="stat-num exact" data-count="8.98" data-decimals="2">0</span><span class="stat-lbl">CGPA · BE IT</span></div>
+        </div>
+      </section>
+
+      <!-- ══════════ JOURNEY ══════════ -->
+      <section class="journey" id="journey">
+        <div class="section-tag reveal-fade">03 — THE ROAD HERE</div>
+        <h2 class="section-title reveal-fade">Five years<br /><span class="stroke">of shipping</span></h2>
+        <div class="tl">
+          <div class="tl-row reveal-fade">
+            <span class="tl-year">2024 — NOW</span>
+            <div class="tl-body"><h3>ERP Developer · Gtree.in</h3><p>Building Frappe/ERPNext products — oil distribution, e-commerce PWAs, EV workshop management. Learning product &amp; entrepreneurship the hard way: by shipping.</p></div>
+          </div>
+          <div class="tl-row reveal-fade">
+            <span class="tl-year">2023 — 2024</span>
+            <div class="tl-body"><h3>Freelance Web Developer</h3><p>Responsive sites, WordPress builds, client wrangling. Learned that shipping beats perfecting.</p></div>
+          </div>
+          <div class="tl-row reveal-fade">
+            <span class="tl-year">2022 — 2023</span>
+            <div class="tl-body"><h3>Data Analyst Intern · SAP HANA</h3><p>ETL, SQLScript, calculation views. Migrated PL/SQL from Oracle to HANA; turned raw tables into decisions.</p></div>
+          </div>
+          <div class="tl-row reveal-fade">
+            <span class="tl-year">2018 — 2021</span>
+            <div class="tl-body"><h3>BE Information Technology · GTU</h3><p>Graduated with 8.98 CGPA. Fell for Linux, servers and the kind of problems that don't have Stack Overflow answers.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════ CONTACT ══════════ -->
+      <section class="contact" id="contact">
+        <div class="section-tag reveal-fade">04 — SAY HELLO</div>
+        <a class="cta" href="mailto:mohitpanaliya0@gmail.com" data-cursor="link" data-sound="boom">
+          <span class="cta-line" data-split>LET'S BUILD</span>
+          <span class="cta-line cta-2" data-split>SOMETHING REAL</span>
+          <span class="cta-orb"></span>
+        </a>
+        <p class="contact-mail-wrap reveal-fade">Prefer plain email? &nbsp;<a class="contact-mail" href="mailto:mohitpanaliya0@gmail.com" data-cursor="link" data-sound="tick">mohitpanaliya0@gmail.com ↗</a></p>
+        <div class="contact-links reveal-fade">
+          <a href="mailto:mohitpanaliya0@gmail.com" data-cursor="link" data-sound="tick">EMAIL ↗</a>
+          <a href="https://github.com/Mohit-Panaliya" target="_blank" rel="noopener" data-cursor="link" data-sound="tick">GITHUB ↗</a>
+          <a href="https://in.linkedin.com/in/mohit-panaliya" target="_blank" rel="noopener" data-cursor="link" data-sound="tick">LINKEDIN ↗</a>
+          <a href="https://x.com/mohit_panaliya" target="_blank" rel="noopener" data-cursor="link" data-sound="tick">X / TWITTER ↗</a>
+          <a href="https://wa.me/917984268804" target="_blank" rel="noopener" data-cursor="link" data-sound="tick">WHATSAPP ↗</a>
+          <a href="assets/img/Mohit_Panaliya_Resume.pdf" target="_blank" rel="noopener" data-cursor="link" data-sound="tick">RÉSUMÉ ↗</a>
+        </div>
+      </section>
+
+      <!-- ══════════ FOOTER ══════════ -->
+      <footer class="footer">
+        <span>© 2026 MOHIT PANALIYA</span>
+        <span class="foot-mid">BUILT WITH THREE.JS · GSAP · WEBAUDIO — NO FRAMEWORKS HARMED</span>
+        <span><a href="https://github.com/Mohit-Panaliya/mohit-panaliya.github.io" target="_blank" rel="noopener" data-cursor="link">SOURCE ↗</a></span>
+      </footer>
+
+    </div>
+  </main>
+
+  <!-- ══════════ SCRIPTS ══════════ -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+  <script type="importmap">
+  { "imports": { "three": "https://unpkg.com/three@0.160.0/build/three.module.js" } }
+  </script>
+  <script src="assets/js/audio.js"></script>
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/github.js"></script>
+  <script src="assets/js/petals.js"></script>
+  <script type="module" src="assets/js/scene.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
