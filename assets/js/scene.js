@@ -45,72 +45,23 @@ const moon = new THREE.Mesh(
 moon.position.set(3.6, 1.15, -2.5);
 heroGroup.add(moon);
 
-/* cartoon sakura tree */
 const treeGroup = new THREE.Group();
 heroGroup.add(treeGroup);
-const BR_MAX2 = 120, BL_MAX2 = 180;
-const branchMat2 = new THREE.MeshBasicMaterial({ color: 0x5a3a2a });
-const blossomMat2 = new THREE.MeshBasicMaterial({ color: 0xf2a9bd });
-const branchMesh2 = new THREE.InstancedMesh(new THREE.CylinderGeometry(0.5, 1, 1, 6), branchMat2, BR_MAX2);
-branchMesh2.count = 0; branchMesh2.frustumCulled = false;
-const blossomMesh2 = new THREE.InstancedMesh(new THREE.IcosahedronGeometry(1, 0), blossomMat2, BL_MAX2);
-blossomMesh2.count = 0; blossomMesh2.frustumCulled = false;
-treeGroup.add(branchMesh2, blossomMesh2);
+const treeLoader = new GLTFLoader();
+treeLoader.load("assets/models/flowering-cherry-tree.glb", (gltf) => {
+  const model = gltf.scene;
+  const box = new THREE.Box3().setFromObject(model);
+  const size = box.getSize(new THREE.Vector3());
+  const center = box.getCenter(new THREE.Vector3());
+  model.position.sub(center);
+  const targetHeight = isMobile ? 2.4 : 4.0;
+  const scale = targetHeight / Math.max(size.y, 0.001);
+  model.scale.setScalar(scale);
+  treeGroup.add(model);
+  treeGroup.position.set(isMobile ? -0.6 : -1.2, -1.0, -1.8);
+  if (isMobile) treeGroup.scale.setScalar(0.85);
+}, undefined, () => {});
 
-function mulberry32(a){return function(){a|=0;a=(a+0x6D2B79F5)|0;let t=Math.imul(a^(a>>>15),1|a);t=(t+Math.imul(t^(t>>>7),61|t))^t;return((t^(t>>>14))>>>0)/4294967296;};}
-const rng2 = mulberry32(9);
-let bi2=0, bli2=0;
-const blossomSeeds2=[];
-const UP2=new THREE.Vector3(0,1,0);
-const _q2=new THREE.Quaternion(),_m2=new THREE.Matrix4(),_p2=new THREE.Vector3(),_s2=new THREE.Vector3();
-
-function addBlossom2(pos){
-  const n=4+((rng2()*5)|0);
-  for(let i=0;i<n && bli2<BL_MAX2;i++){
-    blossomSeeds2.push({p:pos.clone().add(new THREE.Vector3((rng2()-0.5)*0.8,(rng2()-0.5)*0.5,(rng2()-0.5)*0.6)),s:0.18+rng2()*0.28,rx:rng2()*Math.PI*2,ry:rng2()*Math.PI*2});
-    bli2++;
-  }
-}
-function addBranch2(from,dir,len,r){
-  if(bi2>=BR_MAX2-4 || len<0.12 || r<0.03){addBlossom2(from);return;}
-  const to=from.clone().addScaledVector(dir,len);
-  _q2.setFromUnitVectors(UP2,dir);
-  _p2.copy(from).addScaledVector(dir,len/2);
-  _s2.set(r,len,r);
-  _m2.compose(_p2,_q2,_s2);
-  branchMesh2.setMatrixAt(bi2++, _m2);
-  const kids=len>0.6?3:2;
-  for(let i=0;i<kids;i++){
-    const nd=dir.clone();
-    nd.applyAxisAngle(new THREE.Vector3(0,0,1),(rng2()-0.3)*1.0);
-    nd.applyAxisAngle(new THREE.Vector3(1,0,0),(rng2()-0.5)*0.6);
-    nd.y=Math.abs(nd.y)*0.5+0.4*(len>0.7?1:0.5);
-    nd.normalize();
-    addBranch2(to,nd,len*(0.62+rng2()*0.22),r*0.6);
-  }
-  if(rng2()<0.4) addBlossom2(to);
-}
-addBranch2(new THREE.Vector3(0,-2.2,0),new THREE.Vector3(0.1,1,-0.05).normalize(),2.4,0.2);
-addBranch2(new THREE.Vector3(0.3,-0.4,0),new THREE.Vector3(-0.7,0.6,-0.1).normalize(),1.6,0.1);
-addBranch2(new THREE.Vector3(-0.2,0.1,0),new THREE.Vector3(0.8,0.5,0.1).normalize(),1.4,0.08);
-branchMesh2.count=bi2;
-blossomMesh2.count=bli2;
-branchMesh2.instanceMatrix.needsUpdate=true;
-const _bq2=new THREE.Quaternion(),_be2=new THREE.Euler();
-for(let i=0;i<bli2;i++){
-  const b=blossomSeeds2[i];
-  _be2.set(b.rx,b.ry,0);
-  _bq2.setFromEuler(_be2);
-  _p2.copy(b.p);
-  _s2.setScalar(b.s);
-  _m2.compose(_p2,_bq2,_s2);
-  blossomMesh2.setMatrixAt(i,_m2);
-}
-blossomMesh2.instanceMatrix.needsUpdate=true;
-treeGroup.position.set(-1.0,-1.0,-1.8);
-if (isMobile) treeGroup.scale.setScalar(0.7);
-
-/* sakura tree is embedded via Sketchfab iframe in the hero */
 
 function petalGeometry() {
   const s = new THREE.Shape();
