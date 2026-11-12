@@ -74,7 +74,7 @@ treeLoader.load("assets/models/flowering-cherry-tree.glb", (gltf) => {
   treeGroup.add(model);
   treeModel = model;
   treeGroup.position.set(isMobile ? 0.6 : 1.7, -1.0, -1.6);
-});
+}, undefined, () => {});
 
 function petalGeometry() {
   const s = new THREE.Shape();
@@ -245,5 +245,3 @@ if (reduced) {
 } else {
   frame();
 }
-filePath">
-C:\Users\giris\.zcode\workspace\draft-8ccf8c60-d26f-473b-8666-3677c0b94f88\portfolio\assets\js\scene.js
