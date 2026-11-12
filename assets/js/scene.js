@@ -42,21 +42,8 @@ const moon = new THREE.Mesh(
   new THREE.SphereGeometry(1.25, 48, 48),
   new THREE.MeshBasicMaterial({ color: target.moon })
 );
-const moonWire = new THREE.Mesh(
-  new THREE.SphereGeometry(1.35, 18, 14),
-  new THREE.MeshBasicMaterial({ color: target.moonWire, wireframe: true, transparent: true, opacity: 0.14 })
-);
 moon.position.set(3.6, 1.15, -2.5);
-moonWire.position.copy(moon.position);
-heroGroup.add(moon, moonWire);
-
-const enso = new THREE.Mesh(
-  new THREE.RingGeometry(3.1, 3.26, 96, 1, 0.5, Math.PI * 1.72),
-  new THREE.MeshBasicMaterial({ color: target.enso, transparent: true, opacity: 0.55, side: THREE.DoubleSide })
-);
-enso.position.set(3.6, 1.15, -2.4);
-enso.rotation.z = -0.4;
-heroGroup.add(enso);
+heroGroup.add(moon);
 
 const treeGroup = new THREE.Group();
 heroGroup.add(treeGroup);
@@ -191,17 +178,10 @@ function frame() {
     const k = themeMix;
     scene.fog.color.lerp(new THREE.Color(target.fog), k);
     lerpC(moon.material, target.moon, k);
-    lerpC(moonWire.material, target.moonWire, k);
-    lerpC(enso.material, target.enso, k);
     lerpC(fieldMat, target.field, k);
   }
 
   moon.position.y = 1.15 + Math.sin(t * 0.4) * 0.12;
-  moonWire.position.y = moon.position.y;
-  moonWire.rotation.y = t * 0.05;
-  enso.position.y = moon.position.y;
-  enso.rotation.z = -0.4 + Math.sin(t * 0.15) * 0.05;
-  enso.material.opacity = 0.4 + Math.sin(t * 0.6) * 0.12;
 
   heroGroup.position.x += (mouse.x * 0.35 - heroGroup.position.x) * 0.03;
   heroGroup.position.y += (-mouse.y * 0.25 - heroGroup.position.y) * 0.03;
@@ -227,8 +207,7 @@ function frame() {
   const sp = scrollP;
   petalMesh.position.y = sp * 4;
   heroGroup.position.z = -sp * 5;
-  moonWire.material.opacity = 0.14 * (1 - sp) + 0.02;
-  enso.material.opacity = Math.max(0, 0.4 * (1 - sp * 1.4));
+
   field.rotation.y = t * 0.02 + mouse.x * 0.06;
   field.position.y = sp * 3.2;
   camera.position.z = 9 - sp * 1.5;
