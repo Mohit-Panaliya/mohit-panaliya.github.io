@@ -1,23 +1,25 @@
-/* ═══════════════════════════════════════════════
-   SCENE — Three.js hero. Moon + enso ring + a
-   field of falling 3D petals. Mouse parallax,
-   scroll-reactive, theme-lerping (夜 ⇄ 朝),
-   DPR-capped, honors prefers-reduced-motion.
-   ═══════════════════════════════════════════════ */
 import * as THREE from "three";
+import { GLTFLoader } from "https://unpkg.com/three@0.160.0/examples/jsm/loaders/GLTFLoader.js";
 
 const canvas = document.getElementById("webgl");
 const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const isMobile = matchMedia("(max-width: 720px)").matches;
 
-const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
-renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: !isMobile, alpha: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, isMobile ? 1.5 : 2));
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(50, 1, 0.1, 100);
 camera.position.set(0, 0, 9);
 
-/* ── palettes ── */
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
+scene.add(ambientLight);
+const dirLight = new THREE.DirectionalLight(0xffffff, 1.1);
+dirLight.position.set(4, 6, 3);
+scene.add(dirLight);
+const hemiLight = new THREE.HemisphereLight(0xf7c6d3, 0x16121a, 0.5);
+scene.add(hemiLight);
+
 const THEMES = {
   dark: {
     fog: 0x16121a, moon: 0xf3e2c7, moonWire: 0xf3e2c7,
@@ -33,7 +35,6 @@ const THEMES = {
 const target = { ...THEMES[document.documentElement.dataset.theme || "dark"] };
 scene.fog = new THREE.FogExp2(target.fog, 0.045);
 
-/* ── moon ── */
 const heroGroup = new THREE.Group();
 scene.add(heroGroup);
 
@@ -49,7 +50,6 @@ moon.position.set(2.3, 1.15, -2.5);
 moonWire.position.copy(moon.position);
 heroGroup.add(moon, moonWire);
 
-/* enso — the incomplete zen circle */
 const enso = new THREE.Mesh(
   new THREE.RingGeometry(3.1, 3.26, 96, 1, 0.5, Math.PI * 1.72),
   new THREE.MeshBasicMaterial({ color: target.enso, transparent: true, opacity: 0.55, side: THREE.DoubleSide })
@@ -58,12 +58,29 @@ enso.position.set(2.3, 1.15, -2.4);
 enso.rotation.z = -0.4;
 heroGroup.add(enso);
 
-/* ── petal geometry: true sakura silhouette, gently cupped ── */
+const treeGroup = new THREE.Group();
+heroGroup.add(treeGroup);
+let treeModel = null;
+const treeLoader = new GLTFLoader();
+treeLoader.load("assets/models/flowering-cherry-tree.glb", (gltf) => {
+  const model = gltf.scene;
+  const box = new THREE.Box3().setFromObject(model);
+  const size = box.getSize(new THREE.Vector3());
+  const center = box.getCenter(new THREE.Vector3());
+  model.position.sub(center);
+  const targetHeight = isMobile ? 3.0 : 4.2;
+  const scale = targetHeight / Math.max(size.y, 0.001);
+  model.scale.setScalar(scale);
+  treeGroup.add(model);
+  treeModel = model;
+  treeGroup.position.set(isMobile ? 0.6 : 1.7, -1.0, -1.6);
+});
+
 function petalGeometry() {
   const s = new THREE.Shape();
   s.moveTo(0, -0.19);
   s.bezierCurveTo(0.13, -0.1, 0.115, 0.08, 0.03, 0.19);
-  s.bezierCurveTo(0.01, 0.215, -0.01, 0.215, -0.03, 0.19); /* notched tip */
+  s.bezierCurveTo(0.01, 0.215, -0.01, 0.215, -0.03, 0.19);
   s.bezierCurveTo(-0.115, 0.08, -0.13, -0.1, 0, -0.19);
   const g = new THREE.ShapeGeometry(s, 8);
   const pos = g.attributes.position;
@@ -75,7 +92,7 @@ function petalGeometry() {
   return g;
 }
 
-const PETALS = isMobile ? 70 : 150;
+const PETALS = isMobile ? 40 : 120;
 const petalMat = new THREE.MeshBasicMaterial({ side: THREE.DoubleSide, transparent: true, opacity: 0.92, fog: true });
 const petalMesh = new THREE.InstancedMesh(petalGeometry(), petalMat, PETALS);
 scene.add(petalMesh);
@@ -106,8 +123,7 @@ function applyPetalColors() {
   petalMesh.instanceColor.needsUpdate = true;
 }
 
-/* ── ambient dust field ── */
-const FIELD = isMobile ? 350 : 900;
+const FIELD = isMobile ? 200 : 900;
 const fpos = new Float32Array(FIELD * 3);
 for (let i = 0; i < FIELD; i++) {
   const r = 7 + Math.random() * 13, th = Math.random() * Math.PI * 2, ph = Math.acos(2 * Math.random() - 1);
@@ -122,9 +138,8 @@ const field = new THREE.Points(
 );
 scene.add(field);
 
-/* ── theme lerp ── */
 const lerpC = (mat, hex, k) => mat.color.lerp(new THREE.Color(hex), k);
-let themeMix = 1; /* settled; set to 0 to start a lerp */
+let themeMix = 1;
 function setTheme(name) {
   if (!THEMES[name]) return;
   target.fog = THEMES[name].fog; target.moon = THEMES[name].moon;
@@ -135,7 +150,6 @@ function setTheme(name) {
 }
 document.addEventListener("mp:theme", (e) => setTheme(e.detail));
 
-/* ── input state ── */
 const mouse = { x: 0, y: 0, tx: 0, ty: 0 };
 addEventListener("pointermove", (e) => {
   mouse.tx = (e.clientX / innerWidth) * 2 - 1;
@@ -160,7 +174,6 @@ const layout = () => { heroGroup.position.x = innerWidth > 960 ? 0 : -1.3; };
 addEventListener("resize", layout);
 layout();
 
-/* ── loop ── */
 const clock = new THREE.Clock();
 let visible = true;
 document.addEventListener("visibilitychange", () => { visible = !document.hidden; });
@@ -173,7 +186,6 @@ function frame() {
   mouse.x += (mouse.tx - mouse.x) * 0.045;
   mouse.y += (mouse.ty - mouse.y) * 0.045;
 
-  /* theme lerp over ~0.6s of frames */
   if (themeMix < 1) {
     themeMix = Math.min(1, themeMix + 0.05);
     const k = themeMix;
@@ -184,7 +196,6 @@ function frame() {
     lerpC(fieldMat, target.field, k);
   }
 
-  /* moon drifts like it's breathing */
   moon.position.y = 1.15 + Math.sin(t * 0.4) * 0.12;
   moonWire.position.y = moon.position.y;
   moonWire.rotation.y = t * 0.05;
@@ -195,7 +206,9 @@ function frame() {
   heroGroup.position.x += (mouse.x * 0.35 - heroGroup.position.x) * 0.03;
   heroGroup.position.y += (-mouse.y * 0.25 - heroGroup.position.y) * 0.03;
 
-  /* falling petals */
+  treeGroup.rotation.z = Math.sin(t * 0.45) * 0.011;
+  treeGroup.rotation.x = Math.sin(t * 0.3 + 1) * 0.006;
+
   for (let i = 0; i < PETALS; i++) {
     const s = seeds[i];
     s.y -= s.vy * 0.016;
@@ -211,7 +224,6 @@ function frame() {
   }
   petalMesh.instanceMatrix.needsUpdate = true;
 
-  /* scroll: whole world recedes */
   const sp = scrollP;
   petalMesh.position.y = sp * 4;
   heroGroup.position.z = -sp * 5;
@@ -225,12 +237,13 @@ function frame() {
   renderer.render(scene, camera);
 }
 
-/* init */
 for (let i = 0; i < PETALS; i++) { const s = {}; seedPetal(s); seeds.push(s); }
 applyPetalColors();
 
 if (reduced) {
-  renderer.render(scene, camera); /* one still frame */
+  renderer.render(scene, camera);
 } else {
   frame();
 }
+filePath">
+C:\Users\giris\.zcode\workspace\draft-8ccf8c60-d26f-473b-8666-3677c0b94f88\portfolio\assets\js\scene.js
