@@ -488,8 +488,11 @@ a.panel-live:hover { filter: brightness(1.1); }
 }
 @media (max-width: 720px) {
   .nav { padding: 1.1rem 1.3rem; }
+  .hero { min-height: 560px; }
   .hero-title { font-size: clamp(2.2rem, 12vw, 4rem); }
   .hero-content { padding: 0 1.2rem 2rem; }
+  .hero-meta { gap: 1rem; }
+  .btn { padding: .8rem 1.2rem; font-size: .65rem; }
   .sound-label { display: none; }
   .work-track { flex-direction: column; }
   .panel { width: 100%; height: auto; min-height: 280px; }
