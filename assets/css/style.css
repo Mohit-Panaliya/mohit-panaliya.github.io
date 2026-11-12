@@ -320,7 +320,7 @@ button { background: none; border: none; color: inherit; font: inherit; cursor: 
 .work-track { display: flex; padding: 0 clamp(1.2rem, 4vw, 4rem) 4rem; gap: 2rem; will-change: transform; }
 
 .panel {
-  position: relative; flex: 0 0 auto; width: min(58vw, 560px); height: 50vh; min-height: 300px;
+  position: relative; flex: 0 0 auto; width: min(50vw, 500px); height: 45vh; min-height: 260px;
   border: 1px solid var(--faint); border-radius: 1.2rem; overflow: hidden;
   background: var(--bg-2); display: flex; flex-direction: column; justify-content: flex-end;
   transition: border-color .4s;
