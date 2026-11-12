@@ -4,80 +4,54 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mohit Panaliya — Resume</title>
+  <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/css/style.css" />
   <style>
-    :root { --r-ink:#1a1a1a; --r-soft:#444; --r-muted:#666; --r-line:#ddd; --r-accent:#c94f74; }
-    body { background:#f5f5f5; color:var(--r-ink); font-family:"Inter",sans-serif; }
-    .resume-shell { max-width:980px; margin:2rem auto; background:#fff; box-shadow:0 8px 40px rgba(0,0,0,.08); border-radius:12px; overflow:hidden; }
-    .resume-header { background:linear-gradient(135deg,#16121a,#2e2430); color:#fff; padding:2.4rem 2.6rem; }
-    .resume-header h1 { font-family:"Shippori Mincho B1",Georgia,serif; font-size:2.6rem; margin:0; }
-    .resume-header .role { color:#f2a9bd; letter-spacing:.2em; font-size:.8rem; margin:.4rem 0 1rem; }
-    .resume-header .contact { display:flex; flex-wrap:wrap; gap:.6rem 1.4rem; font-size:.9rem; }
-    .resume-header .contact a { color:#fff; text-decoration:none; border-bottom:1px solid rgba(255,255,255,.3); }
-    .resume-body { display:grid; grid-template-columns:1fr 2fr; gap:0; }
-    .resume-side { background:#faf7f9; padding:2rem 1.6rem; border-right:1px solid var(--r-line); }
-    .resume-main { padding:2rem 2.2rem; }
-    .resume h2 { font-family:"Shippori Mincho B1",Georgia,serif; font-size:1.25rem; margin:1.6rem 0 .7rem; color:var(--r-accent); border-bottom:2px solid var(--r-accent); padding-bottom:.3rem; display:inline-block; }
-    .resume h2:first-child { margin-top:0; }
-    .resume p { line-height:1.6; color:var(--r-soft); }
-    .resume ul { padding-left:1.1rem; margin:.4rem 0; }
-    .resume li { margin:.35rem 0; line-height:1.55; color:var(--r-soft); }
-    .skill-chips { display:flex; flex-wrap:wrap; gap:.5rem; }
-    .skill-chip { background:#fff; border:1px solid var(--r-line); padding:.35rem .7rem; border-radius:999px; font-size:.8rem; color:var(--r-ink); }
-    .exp-item { margin-bottom:1.4rem; }
-    .exp-item .title { font-weight:600; color:var(--r-ink); }
-    .exp-item .meta { font-size:.85rem; color:var(--r-muted); margin:.15rem 0 .5rem; }
-    .proj { background:#faf7f9; border:1px solid var(--r-line); border-radius:8px; padding:1rem 1.1rem; margin-bottom:.9rem; }
-    .proj h3 { font-size:1rem; margin:0 0 .35rem; }
-    .proj h3 a { color:var(--r-ink); text-decoration:none; border-bottom:1px solid var(--r-line); }
-    .proj p { font-size:.9rem; margin:.3rem 0; }
-    .proj .tags { font-size:.78rem; color:var(--r-muted); }
-    .print-btn { position:fixed; top:1.2rem; right:1.2rem; padding:.6rem 1.1rem; background:var(--r-accent); color:#fff; border:none; border-radius:6px; cursor:pointer; font-weight:600; }
-    @media (max-width:720px){ .resume-body { grid-template-columns:1fr; } .resume-side { border-right:none; border-bottom:1px solid var(--r-line); } }
-    @media print { body{background:#fff;} .resume-shell{box-shadow:none;margin:0;border-radius:0;} .print-btn{display:none;} }
+    body { font-family: "Inter", sans-serif; }
+    .font-mincho { font-family: "Shippori Mincho B1", Georgia, serif; }
   </style>
 </head>
-<body>
-  <button class="print-btn" onclick="window.print()">Print / Save PDF</button>
-  <div class="resume-shell">
-    <header class="resume-header">
-      <h1>Mohit Panaliya</h1>
-      <p class="role">ERP ARCHITECT &amp; SYSTEMS DEVELOPER</p>
-      <div class="contact">
+<body class="bg-gray-100 text-gray-900">
+  <button onclick="window.print()" class="fixed top-4 right-4 px-4 py-2 bg-pink-600 text-white rounded font-semibold print:hidden">Print / Save PDF</button>
+  <div class="max-w-5xl mx-auto my-8 bg-white shadow-2xl rounded-xl overflow-hidden">
+    <header class="bg-gradient-to-br from-gray-900 to-gray-800 text-white p-8 md:p-10">
+      <h1 class="font-mincho text-4xl md:text-5xl mb-1">Mohit Panaliya</h1>
+      <p class="tracking-widest text-pink-300 text-xs md:text-sm mb-4">ERP ARCHITECT &amp; SYSTEMS DEVELOPER</p>
+      <div class="flex flex-wrap gap-x-6 gap-y-2 text-sm">
         <span>Anand, Gujarat, IN</span>
-        <a href="mailto:mohitpanaliya0@gmail.com">mohitpanaliya0@gmail.com</a>
-        <a href="https://github.com/Mohit-Panaliya" target="_blank" rel="noopener">GitHub</a>
-        <a href="https://in.linkedin.com/in/mohit-panaliya" target="_blank" rel="noopener">LinkedIn</a>
-        <a href="https://www.instagram.com/mohitpanaliya/" target="_blank" rel="noopener">Instagram</a>
-        <a href="https://www.facebook.com/mohit.panaliya/" target="_blank" rel="noopener">Facebook</a>
+        <a href="mailto:mohitpanaliya0@gmail.com" class="border-b border-white/30 hover:border-pink-300">mohitpanaliya0@gmail.com</a>
+        <a href="https://github.com/Mohit-Panaliya" target="_blank" rel="noopener" class="border-b border-white/30 hover:border-pink-300">GitHub</a>
+        <a href="https://in.linkedin.com/in/mohit-panaliya" target="_blank" rel="noopener" class="border-b border-white/30 hover:border-pink-300">LinkedIn</a>
+        <a href="https://www.instagram.com/mohitpanaliya/" target="_blank" rel="noopener" class="border-b border-white/30 hover:border-pink-300">Instagram</a>
+        <a href="https://www.facebook.com/mohit.panaliya/" target="_blank" rel="noopener" class="border-b border-white/30 hover:border-pink-300">Facebook</a>
       </div>
     </header>
-    <div class="resume-body">
-      <aside class="resume-side">
-        <section>
-          <h2>Skills</h2>
-          <div class="skill-chips">
-            <span class="skill-chip">Frappe / ERPNext</span>
-            <span class="skill-chip">Rust</span>
-            <span class="skill-chip">Vue / Ionic</span>
-            <span class="skill-chip">Svelte / Tauri</span>
-            <span class="skill-chip">Python</span>
-            <span class="skill-chip">SAP HANA</span>
-            <span class="skill-chip">SQL / ETL</span>
-            <span class="skill-chip">Linux</span>
-            <span class="skill-chip">Docker</span>
+    <div class="grid md:grid-cols-3">
+      <aside class="bg-pink-50 p-6 md:p-8 border-r border-gray-200">
+        <section class="mb-8">
+          <h2 class="font-mincho text-xl text-pink-600 border-b-2 border-pink-600 pb-1 inline-block mb-4">Skills</h2>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-3 py-1 bg-white border border-gray-200 rounded-full text-sm">Frappe / ERPNext</span>
+            <span class="px-3 py-1 bg-white border border-gray-200 rounded-full text-sm">Rust</span>
+            <span class="px-3 py-1 bg-white border border-gray-200 rounded-full text-sm">Vue / Ionic</span>
+            <span class="px-3 py-1 bg-white border border-gray-200 rounded-full text-sm">Svelte / Tauri</span>
+            <span class="px-3 py-1 bg-white border border-gray-200 rounded-full text-sm">Python</span>
+            <span class="px-3 py-1 bg-white border border-gray-200 rounded-full text-sm">SAP HANA</span>
+            <span class="px-3 py-1 bg-white border border-gray-200 rounded-full text-sm">SQL / ETL</span>
+            <span class="px-3 py-1 bg-white border border-gray-200 rounded-full text-sm">Linux</span>
+            <span class="px-3 py-1 bg-white border border-gray-200 rounded-full text-sm">Docker</span>
           </div>
         </section>
-        <section>
-          <h2>Education</h2>
-          <p><strong>BE Information Technology</strong><br/>GTU · 2018–2021<br/>8.98 CGPA</p>
+        <section class="mb-8">
+          <h2 class="font-mincho text-xl text-pink-600 border-b-2 border-pink-600 pb-1 inline-block mb-4">Education</h2>
+          <p class="font-semibold">BE Information Technology</p>
+          <p class="text-sm text-gray-600">GTU · 2018–2021<br/>8.98 CGPA</p>
         </section>
         <section>
-          <h2>Core Strengths</h2>
-          <ul>
+          <h2 class="font-mincho text-xl text-pink-600 border-b-2 border-pink-600 pb-1 inline-block mb-4">Strengths</h2>
+          <ul class="space-y-1 text-gray-700">
             <li>ERP architecture</li>
             <li>Offline-first PWAs</li>
             <li>Single-binary tooling</li>
@@ -86,39 +60,39 @@
           </ul>
         </section>
       </aside>
-      <main class="resume-main">
-        <section>
-          <h2>Summary</h2>
-          <p>ERP developer and systems builder. I ship software that runs real businesses — oil-distribution ERPs, offline commerce PWAs, Rust developer tooling and data pipelines. Linux-first, performance-obsessed, allergic to slow software.</p>
+      <main class="p-6 md:p-8">
+        <section class="mb-8">
+          <h2 class="font-mincho text-xl text-pink-600 border-b-2 border-pink-600 pb-1 inline-block mb-4">Summary</h2>
+          <p class="text-gray-700 leading-relaxed">ERP developer and systems builder. I ship software that runs real businesses — oil-distribution ERPs, offline commerce PWAs, Rust developer tooling and data pipelines. Linux-first, performance-obsessed, allergic to slow software.</p>
         </section>
-        <section>
-          <h2>Experience</h2>
-          <div class="exp-item">
-            <div class="title">ERP Developer · Gtree.in</div>
-            <div class="meta">2024 – Present · Anand, IN</div>
-            <ul>
+        <section class="mb-8">
+          <h2 class="font-mincho text-xl text-pink-600 border-b-2 border-pink-600 pb-1 inline-block mb-4">Experience</h2>
+          <div class="mb-5">
+            <div class="font-semibold">ERP Developer · Gtree.in</div>
+            <div class="text-sm text-gray-500 mb-2">2024 – Present · Anand, IN</div>
+            <ul class="list-disc pl-5 text-gray-700 space-y-1">
               <li>Building Frappe/ERPNext products used by real businesses daily.</li>
               <li>Oil distribution ERP, e-commerce PWAs, EV workshop management.</li>
             </ul>
           </div>
-          <div class="exp-item">
-            <div class="title">Freelance Web Developer</div>
-            <div class="meta">2023 – 2024</div>
-            <ul>
+          <div class="mb-5">
+            <div class="font-semibold">Freelance Web Developer</div>
+            <div class="text-sm text-gray-500 mb-2">2023 – 2024</div>
+            <ul class="list-disc pl-5 text-gray-700 space-y-1">
               <li>Responsive sites, WordPress builds, client delivery.</li>
             </ul>
           </div>
-          <div class="exp-item">
-            <div class="title">Data Analyst Intern · SAP HANA</div>
-            <div class="meta">2022 – 2023</div>
-            <ul>
+          <div>
+            <div class="font-semibold">Data Analyst Intern · SAP HANA</div>
+            <div class="text-sm text-gray-500 mb-2">2022 – 2023</div>
+            <ul class="list-disc pl-5 text-gray-700 space-y-1">
               <li>ETL, SQLScript, calculation views; Oracle→HANA migration.</li>
             </ul>
           </div>
         </section>
         <section>
-          <h2>Projects (latest from GitHub)</h2>
-          <div id="projects">Loading…</div>
+          <h2 class="font-mincho text-xl text-pink-600 border-b-2 border-pink-600 pb-1 inline-block mb-4">Projects (latest from GitHub)</h2>
+          <div id="projects" class="space-y-4">Loading…</div>
         </section>
       </main>
     </div>
@@ -145,12 +119,10 @@
         const desc = c.desc || r.description || "";
         const tags = [...new Set([...(c.tags||[]), ...(r.topics||[]).slice(0,3)])].slice(0,6);
         const meta = [r.language, r.stargazers_count? r.stargazers_count + "★" : null].filter(Boolean).join(" · ");
-        return `<div class="proj"><h3><a href="${r.html_url}" target="_blank" rel="noopener">${title}</a></h3><p>${desc}</p><p class="tags">${tags.join(" · ")}${meta? " · " + meta : ""}${r.homepage? " · " + r.homepage : ""}</p></div>`;
+        return `<div class="bg-pink-50 border border-gray-200 rounded-lg p-4"><h3 class="font-semibold mb-1"><a href="${r.html_url}" target="_blank" rel="noopener" class="border-b border-gray-300">${title}</a></h3><p class="text-sm text-gray-700 mb-2">${desc}</p><p class="text-xs text-gray-500">${tags.join(" · ")}${meta? " · " + meta : ""}${r.homepage? " · " + r.homepage : ""}</p></div>`;
       }).join("") || "Offline — see portfolio.";
     }
     load();
   </script>
 </body>
 </html>
-filePath">
-C:\Users\giris\.zcode\workspace\draft-8ccf8c60-d26f-473b-8666-3677c0b94f88\portfolio\resume.html
