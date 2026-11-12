@@ -154,10 +154,7 @@
       });
     }
     /* panel entrance */
-    gsap.fromTo(trackEl.querySelectorAll(".panel"), { y: 60, opacity: 0 }, {
-      y: 0, opacity: 1, duration: 0.9, stagger: 0.08, ease: EASE_OUT,
-      scrollTrigger: { trigger: ".work", start: "top 70%" },
-    });
+    gsap.set(trackEl.querySelectorAll(".panel"), { y: 0, opacity: 1 });
   }
   document.addEventListener("gh:rendered", () => buildWork());
 
