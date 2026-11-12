@@ -39,14 +39,14 @@ const heroGroup = new THREE.Group();
 scene.add(heroGroup);
 
 const moon = new THREE.Mesh(
-  new THREE.SphereGeometry(1.75, 48, 48),
+  new THREE.SphereGeometry(1.25, 48, 48),
   new THREE.MeshBasicMaterial({ color: target.moon })
 );
 const moonWire = new THREE.Mesh(
-  new THREE.SphereGeometry(1.86, 18, 14),
+  new THREE.SphereGeometry(1.35, 18, 14),
   new THREE.MeshBasicMaterial({ color: target.moonWire, wireframe: true, transparent: true, opacity: 0.14 })
 );
-moon.position.set(3.0, 1.15, -2.5);
+moon.position.set(3.6, 1.15, -2.5);
 moonWire.position.copy(moon.position);
 heroGroup.add(moon, moonWire);
 
@@ -54,7 +54,7 @@ const enso = new THREE.Mesh(
   new THREE.RingGeometry(3.1, 3.26, 96, 1, 0.5, Math.PI * 1.72),
   new THREE.MeshBasicMaterial({ color: target.enso, transparent: true, opacity: 0.55, side: THREE.DoubleSide })
 );
-enso.position.set(3.0, 1.15, -2.4);
+enso.position.set(3.6, 1.15, -2.4);
 enso.rotation.z = -0.4;
 heroGroup.add(enso);
 
@@ -68,12 +68,12 @@ treeLoader.load("assets/models/flowering-cherry-tree.glb", (gltf) => {
   const size = box.getSize(new THREE.Vector3());
   const center = box.getCenter(new THREE.Vector3());
   model.position.sub(center);
-  const targetHeight = isMobile ? 2.4 : 3.0;
+  const targetHeight = isMobile ? 3.2 : 5.5;
   const scale = targetHeight / Math.max(size.y, 0.001);
   model.scale.setScalar(scale);
   treeGroup.add(model);
   treeModel = model;
-  treeGroup.position.set(isMobile ? -0.8 : -2.6, -1.0, -2.0);
+  treeGroup.position.set(isMobile ? -0.4 : -1.2, -1.2, -1.8);
 }, undefined, () => {});
 
 function petalGeometry() {
