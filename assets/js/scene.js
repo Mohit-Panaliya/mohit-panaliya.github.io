@@ -46,7 +46,7 @@ const moonWire = new THREE.Mesh(
   new THREE.SphereGeometry(2.16, 18, 14),
   new THREE.MeshBasicMaterial({ color: target.moonWire, wireframe: true, transparent: true, opacity: 0.14 })
 );
-moon.position.set(2.3, 1.15, -2.5);
+moon.position.set(3.0, 1.15, -2.5);
 moonWire.position.copy(moon.position);
 heroGroup.add(moon, moonWire);
 
@@ -54,7 +54,7 @@ const enso = new THREE.Mesh(
   new THREE.RingGeometry(3.1, 3.26, 96, 1, 0.5, Math.PI * 1.72),
   new THREE.MeshBasicMaterial({ color: target.enso, transparent: true, opacity: 0.55, side: THREE.DoubleSide })
 );
-enso.position.set(2.3, 1.15, -2.4);
+enso.position.set(3.0, 1.15, -2.4);
 enso.rotation.z = -0.4;
 heroGroup.add(enso);
 
@@ -73,7 +73,7 @@ treeLoader.load("assets/models/flowering-cherry-tree.glb", (gltf) => {
   model.scale.setScalar(scale);
   treeGroup.add(model);
   treeModel = model;
-  treeGroup.position.set(isMobile ? 0.6 : 1.7, -1.0, -1.6);
+  treeGroup.position.set(isMobile ? -0.8 : -2.6, -1.0, -2.0);
 }, undefined, () => {});
 
 function petalGeometry() {
