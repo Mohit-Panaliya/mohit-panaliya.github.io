@@ -9,64 +9,120 @@
   <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/style.css" />
   <style>
-    body { background: #fff; color: #1a1a1a; }
-    .resume { max-width: 820px; margin: 0 auto; padding: 2.4rem 2rem; }
-    .resume h1 { font-family: "Shippori Mincho B1", Georgia, serif; font-size: 2.4rem; margin-bottom: .2rem; }
-    .resume .sub { color: #555; margin-bottom: 1.4rem; }
-    .resume h2 { font-family: "Shippori Mincho B1", Georgia, serif; font-size: 1.3rem; margin: 1.6rem 0 .6rem; border-bottom: 1px solid #ccc; padding-bottom: .3rem; }
-    .resume ul { padding-left: 1.2rem; }
-    .resume li { margin: .35rem 0; line-height: 1.5; }
-    .resume .links { font-size: .9rem; margin-bottom: 1.2rem; }
-    .resume .links a { color: #1a5fb4; }
-    .resume .proj { margin-bottom: 1rem; }
-    .resume .proj h3 { font-size: 1.05rem; margin-bottom: .2rem; }
-    .resume .proj h3 a { color: inherit; text-decoration: none; border-bottom: 1px solid #ccc; }
-    .resume .proj h3 { font-size: 1.05rem; margin-bottom: .2rem; }
-    .resume .tags { font-size: .8rem; color: #666; }
-    .print-btn { position: fixed; top: 1rem; right: 1rem; padding: .6rem 1rem; background: #111; color: #fff; border: none; border-radius: 6px; cursor: pointer; }
-    @media print { .print-btn { display: none; } body { background: #fff; } }
+    :root { --r-ink:#1a1a1a; --r-soft:#444; --r-muted:#666; --r-line:#ddd; --r-accent:#c94f74; }
+    body { background:#f5f5f5; color:var(--r-ink); font-family:"Inter",sans-serif; }
+    .resume-shell { max-width:980px; margin:2rem auto; background:#fff; box-shadow:0 8px 40px rgba(0,0,0,.08); border-radius:12px; overflow:hidden; }
+    .resume-header { background:linear-gradient(135deg,#16121a,#2e2430); color:#fff; padding:2.4rem 2.6rem; }
+    .resume-header h1 { font-family:"Shippori Mincho B1",Georgia,serif; font-size:2.6rem; margin:0; }
+    .resume-header .role { color:#f2a9bd; letter-spacing:.2em; font-size:.8rem; margin:.4rem 0 1rem; }
+    .resume-header .contact { display:flex; flex-wrap:wrap; gap:.6rem 1.4rem; font-size:.9rem; }
+    .resume-header .contact a { color:#fff; text-decoration:none; border-bottom:1px solid rgba(255,255,255,.3); }
+    .resume-body { display:grid; grid-template-columns:1fr 2fr; gap:0; }
+    .resume-side { background:#faf7f9; padding:2rem 1.6rem; border-right:1px solid var(--r-line); }
+    .resume-main { padding:2rem 2.2rem; }
+    .resume h2 { font-family:"Shippori Mincho B1",Georgia,serif; font-size:1.25rem; margin:1.6rem 0 .7rem; color:var(--r-accent); border-bottom:2px solid var(--r-accent); padding-bottom:.3rem; display:inline-block; }
+    .resume h2:first-child { margin-top:0; }
+    .resume p { line-height:1.6; color:var(--r-soft); }
+    .resume ul { padding-left:1.1rem; margin:.4rem 0; }
+    .resume li { margin:.35rem 0; line-height:1.55; color:var(--r-soft); }
+    .skill-chips { display:flex; flex-wrap:wrap; gap:.5rem; }
+    .skill-chip { background:#fff; border:1px solid var(--r-line); padding:.35rem .7rem; border-radius:999px; font-size:.8rem; color:var(--r-ink); }
+    .exp-item { margin-bottom:1.4rem; }
+    .exp-item .title { font-weight:600; color:var(--r-ink); }
+    .exp-item .meta { font-size:.85rem; color:var(--r-muted); margin:.15rem 0 .5rem; }
+    .proj { background:#faf7f9; border:1px solid var(--r-line); border-radius:8px; padding:1rem 1.1rem; margin-bottom:.9rem; }
+    .proj h3 { font-size:1rem; margin:0 0 .35rem; }
+    .proj h3 a { color:var(--r-ink); text-decoration:none; border-bottom:1px solid var(--r-line); }
+    .proj p { font-size:.9rem; margin:.3rem 0; }
+    .proj .tags { font-size:.78rem; color:var(--r-muted); }
+    .print-btn { position:fixed; top:1.2rem; right:1.2rem; padding:.6rem 1.1rem; background:var(--r-accent); color:#fff; border:none; border-radius:6px; cursor:pointer; font-weight:600; }
+    @media (max-width:720px){ .resume-body { grid-template-columns:1fr; } .resume-side { border-right:none; border-bottom:1px solid var(--r-line); } }
+    @media print { body{background:#fff;} .resume-shell{box-shadow:none;margin:0;border-radius:0;} .print-btn{display:none;} }
   </style>
 </head>
 <body>
   <button class="print-btn" onclick="window.print()">Print / Save PDF</button>
-  <main class="resume">
-    <h1>Mohit Panaliya</h1>
-    <p class="sub">ERP Architect &amp; Systems Developer — Anand, Gujarat, IN</p>
-    <p class="links">
-      <a href="mailto:mohitpanaliya0@gmail.com">Email</a> ·
-      <a href="https://github.com/Mohit-Panaliya" target="_blank" rel="noopener">GitHub</a> ·
-      <a href="https://in.linkedin.com/in/mohit-panaliya" target="_blank" rel="noopener">LinkedIn</a> ·
-      <a href="https://www.instagram.com/mohitpanaliya/" target="_blank" rel="noopener">Instagram</a> ·
-      <a href="https://www.facebook.com/mohit.panaliya/" target="_blank" rel="noopener">Facebook</a>
-    </p>
-
-    <h2>Summary</h2>
-    <p>ERP developer and systems builder (Frappe/ERPNext, Rust, Vue, Tauri). I ship software that runs real businesses: oil-distribution ERPs, offline commerce PWAs, developer tooling.</p>
-
-    <h2>Skills</h2>
-    <ul>
-      <li>Frappe Framework, ERPNext, Odoo — custom apps, dashboards, workflows, migrations, deployment</li>
-      <li>Rust — gateways, analyzers, relays, data-transfer engines, single-binary tooling</li>
-      <li>Web &amp; cross-platform — Vue/Ionic PWAs, Svelte + Tauri desktop, responsive sites, offline-first</li>
-      <li>Data &amp; analytics — SAP HANA modeling, ETL, SQLScript, Oracle→HANA migrations</li>
-      <li>BE IT, GTU — 8.98 CGPA</li>
-    </ul>
-
-    <h2>Experience</h2>
-    <ul>
-      <li><strong>ERP Developer · Gtree.in</strong> — 2024–now. Frappe/ERPNext products for oil distribution, e-commerce PWAs, EV workshop management.</li>
-      <li><strong>Freelance Web Developer</strong> — 2023–2024. Responsive sites, WordPress builds, client work.</li>
-      <li><strong>Data Analyst Intern · SAP HANA</strong> — 2022–2023. ETL, SQLScript, calculation views, Oracle→HANA migration.</li>
-    </ul>
-
-    <h2>Education</h2>
-    <ul>
-      <li><strong>BE Information Technology · GTU</strong> — 2018–2021, 8.98 CGPA.</li>
-    </ul>
-
-    <h2>Projects (latest from GitHub)</h2>
-    <div id="projects">Loading…</div>
-  </main>
+  <div class="resume-shell">
+    <header class="resume-header">
+      <h1>Mohit Panaliya</h1>
+      <p class="role">ERP ARCHITECT &amp; SYSTEMS DEVELOPER</p>
+      <div class="contact">
+        <span>Anand, Gujarat, IN</span>
+        <a href="mailto:mohitpanaliya0@gmail.com">mohitpanaliya0@gmail.com</a>
+        <a href="https://github.com/Mohit-Panaliya" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://in.linkedin.com/in/mohit-panaliya" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://www.instagram.com/mohitpanaliya/" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.facebook.com/mohit.panaliya/" target="_blank" rel="noopener">Facebook</a>
+      </div>
+    </header>
+    <div class="resume-body">
+      <aside class="resume-side">
+        <section>
+          <h2>Skills</h2>
+          <div class="skill-chips">
+            <span class="skill-chip">Frappe / ERPNext</span>
+            <span class="skill-chip">Rust</span>
+            <span class="skill-chip">Vue / Ionic</span>
+            <span class="skill-chip">Svelte / Tauri</span>
+            <span class="skill-chip">Python</span>
+            <span class="skill-chip">SAP HANA</span>
+            <span class="skill-chip">SQL / ETL</span>
+            <span class="skill-chip">Linux</span>
+            <span class="skill-chip">Docker</span>
+          </div>
+        </section>
+        <section>
+          <h2>Education</h2>
+          <p><strong>BE Information Technology</strong><br/>GTU · 2018–2021<br/>8.98 CGPA</p>
+        </section>
+        <section>
+          <h2>Core Strengths</h2>
+          <ul>
+            <li>ERP architecture</li>
+            <li>Offline-first PWAs</li>
+            <li>Single-binary tooling</li>
+            <li>Data &amp; analytics</li>
+            <li>Product shipping</li>
+          </ul>
+        </section>
+      </aside>
+      <main class="resume-main">
+        <section>
+          <h2>Summary</h2>
+          <p>ERP developer and systems builder. I ship software that runs real businesses — oil-distribution ERPs, offline commerce PWAs, Rust developer tooling and data pipelines. Linux-first, performance-obsessed, allergic to slow software.</p>
+        </section>
+        <section>
+          <h2>Experience</h2>
+          <div class="exp-item">
+            <div class="title">ERP Developer · Gtree.in</div>
+            <div class="meta">2024 – Present · Anand, IN</div>
+            <ul>
+              <li>Building Frappe/ERPNext products used by real businesses daily.</li>
+              <li>Oil distribution ERP, e-commerce PWAs, EV workshop management.</li>
+            </ul>
+          </div>
+          <div class="exp-item">
+            <div class="title">Freelance Web Developer</div>
+            <div class="meta">2023 – 2024</div>
+            <ul>
+              <li>Responsive sites, WordPress builds, client delivery.</li>
+            </ul>
+          </div>
+          <div class="exp-item">
+            <div class="title">Data Analyst Intern · SAP HANA</div>
+            <div class="meta">2022 – 2023</div>
+            <ul>
+              <li>ETL, SQLScript, calculation views; Oracle→HANA migration.</li>
+            </ul>
+          </div>
+        </section>
+        <section>
+          <h2>Projects (latest from GitHub)</h2>
+          <div id="projects">Loading…</div>
+        </section>
+      </main>
+    </div>
+  </div>
 
   <script src="assets/js/data.js"></script>
   <script>
@@ -81,7 +137,7 @@
       if (!repos) {
         try { const r = await fetch(`https://api.github.com/users/${USER}/repos?per_page=100&sort=updated`); repos = await r.json(); } catch(e){ repos = []; }
       }
-      const mine = (repos||[]).filter(r=>!r.fork && !BLOCKLIST.has(r.name)).slice(0,12);
+      const mine = (repos||[]).filter(r=>!r.fork && !BLOCKLIST.has(r.name)).slice(0,8);
       const el = document.getElementById("projects");
       el.innerHTML = mine.map(r=>{
         const c = (window.CURATED && window.CURATED[r.name]) || {};
