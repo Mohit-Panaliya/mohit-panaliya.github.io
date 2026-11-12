@@ -45,23 +45,7 @@ const moon = new THREE.Mesh(
 moon.position.set(3.6, 1.15, -2.5);
 heroGroup.add(moon);
 
-const treeGroup = new THREE.Group();
-heroGroup.add(treeGroup);
-let treeModel = null;
-const treeLoader = new GLTFLoader();
-treeLoader.load("assets/models/flowering-cherry-tree.glb", (gltf) => {
-  const model = gltf.scene;
-  const box = new THREE.Box3().setFromObject(model);
-  const size = box.getSize(new THREE.Vector3());
-  const center = box.getCenter(new THREE.Vector3());
-  model.position.sub(center);
-  const targetHeight = isMobile ? 3.2 : 5.5;
-  const scale = targetHeight / Math.max(size.y, 0.001);
-  model.scale.setScalar(scale);
-  treeGroup.add(model);
-  treeModel = model;
-  treeGroup.position.set(isMobile ? -0.4 : -1.2, -1.2, -1.8);
-}, undefined, () => {});
+/* sakura tree is embedded via Sketchfab iframe in the hero */
 
 function petalGeometry() {
   const s = new THREE.Shape();
@@ -186,8 +170,7 @@ function frame() {
   heroGroup.position.x += (mouse.x * 0.35 - heroGroup.position.x) * 0.03;
   heroGroup.position.y += (-mouse.y * 0.25 - heroGroup.position.y) * 0.03;
 
-  treeGroup.rotation.z = Math.sin(t * 0.45) * 0.011;
-  treeGroup.rotation.x = Math.sin(t * 0.3 + 1) * 0.006;
+
 
   for (let i = 0; i < PETALS; i++) {
     const s = seeds[i];
