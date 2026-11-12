@@ -331,8 +331,9 @@ button { background: none; border: none; color: inherit; font: inherit; cursor: 
 .panel-body { position: relative; z-index: 1; padding: 2rem 2.2rem; }
 .panel-idx {
   position: absolute; top: 1.6rem; left: 2rem; z-index: 1;
-  font-family: "Shippori Mincho B1", Georgia, serif; font-size: 0.75rem; letter-spacing: 0.3em; color: var(--accent);
+  font-family: "Shippori Mincho B1", Georgia, serif; font-size: 1.4rem; letter-spacing: 0.2em; color: var(--accent);
 }
+.panel-links { position: absolute; top: 1.6rem; right: 2rem; z-index: 1; }
 .panel-live {
   position: absolute; top: 1.4rem; right: 1.8rem; z-index: 1;
   font-size: 0.6rem; letter-spacing: 0.22em; color: var(--on-accent); background: var(--accent);
