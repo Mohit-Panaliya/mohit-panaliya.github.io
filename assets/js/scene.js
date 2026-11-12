@@ -108,6 +108,7 @@ for(let i=0;i<bli2;i++){
 }
 blossomMesh2.instanceMatrix.needsUpdate=true;
 treeGroup.position.set(-1.0,-1.0,-1.8);
+if (isMobile) treeGroup.scale.setScalar(0.7);
 
 /* sakura tree is embedded via Sketchfab iframe in the hero */
 
@@ -127,7 +128,7 @@ function petalGeometry() {
   return g;
 }
 
-const PETALS = isMobile ? 40 : 120;
+const PETALS = isMobile ? 20 : 120;
 const petalMat = new THREE.MeshBasicMaterial({ side: THREE.DoubleSide, transparent: true, opacity: 0.92, fog: true });
 const petalMesh = new THREE.InstancedMesh(petalGeometry(), petalMat, PETALS);
 scene.add(petalMesh);
@@ -158,7 +159,7 @@ function applyPetalColors() {
   petalMesh.instanceColor.needsUpdate = true;
 }
 
-const FIELD = isMobile ? 200 : 900;
+const FIELD = isMobile ? 100 : 900;
 const fpos = new Float32Array(FIELD * 3);
 for (let i = 0; i < FIELD; i++) {
   const r = 7 + Math.random() * 13, th = Math.random() * Math.PI * 2, ph = Math.acos(2 * Math.random() - 1);
