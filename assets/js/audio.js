@@ -195,5 +195,5 @@
 
   /* restore last choice — but browsers require a gesture before audio,
      so only reflect the saved intent; the context starts on next toggle/click */
-  try { if (localStorage.getItem("mp-sound") === "1") MPAudio._pendingEnable = true; } catch (e) {}
+  try { const _s = localStorage.getItem("mp-sound"); if (_s === "1" || _s === null) MPAudio._pendingEnable = true; } catch (e) { MPAudio._pendingEnable = true; }
 })();
