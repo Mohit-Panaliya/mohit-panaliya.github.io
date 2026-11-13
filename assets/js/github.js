@@ -37,16 +37,18 @@
     return `
       <article class="panel" data-sound="shimmer">
         <div class="panel-art ${art}">${orbs}</div>
-        <span class="panel-idx">${p.idx}</span>
-        ${live}
+        <div class="panel-top">
+          <span class="panel-idx">${p.idx}</span>
+          <div class="panel-top-right">
+            ${live}
+            <a href="${p.link}" target="_blank" rel="noopener">SOURCE ↗</a>
+            ${p.live ? `<a href="${p.live}" target="_blank" rel="noopener">LIVE SITE ↗</a>` : ""}
+          </div>
+        </div>
         <div class="panel-body">
           <h3>${p.title}</h3>
           <p>${p.desc}</p>
           <div class="panel-tags">${tags}</div>
-          <div class="panel-links">
-            <a href="${p.link}" target="_blank" rel="noopener">VIEW SOURCE ↗</a>
-            ${p.live ? `<a href="${p.live}" target="_blank" rel="noopener">LIVE SITE ↗</a>` : `<span class="ghost">DETAILS IN REPO</span>`}
-          </div>
         </div>
       </article>`;
   }

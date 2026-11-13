@@ -157,7 +157,11 @@ const resize = () => {
 addEventListener("resize", resize);
 resize();
 
-const layout = () => { heroGroup.position.x = innerWidth > 960 ? 0 : -1.3; };
+const layout = () => {
+  heroGroup.position.x = 0;
+  /* keep the moon on-screen at narrow aspect ratios */
+  moon.position.x = innerWidth > 960 ? 4.0 : 2.1;
+};
 addEventListener("resize", layout);
 layout();
 
@@ -181,7 +185,7 @@ function frame() {
     lerpC(fieldMat, target.field, k);
   }
 
-  moon.position.y = 1.15 + Math.sin(t * 0.4) * 0.12;
+  moon.position.y = 2.2 + Math.sin(t * 0.4) * 0.12;
 
   heroGroup.position.x += (mouse.x * 0.35 - heroGroup.position.x) * 0.03;
   heroGroup.position.y += (-mouse.y * 0.25 - heroGroup.position.y) * 0.03;

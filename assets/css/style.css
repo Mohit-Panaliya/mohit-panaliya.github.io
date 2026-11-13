@@ -131,7 +131,7 @@ button { background: none; border: none; color: inherit; font: inherit; cursor: 
 
 /* ══════════ NAV ══════════ */
 .nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 930;
+  position: fixed; top: 0; left: 0; right: 0; z-index: 945;
   display: flex; justify-content: space-between; align-items: center;
   padding: 1.4rem 2.4rem;
 }
@@ -169,7 +169,7 @@ button { background: none; border: none; color: inherit; font: inherit; cursor: 
 
 /* ══════════ MENU OVERLAY ══════════ */
 .menu {
-  position: fixed; inset: 0; z-index: 940; background: var(--bg-3);
+  position: fixed; inset: 0; z-index: 940; background: var(--bg-3); padding-top: 5rem;
   clip-path: inset(0 0 100% 0); visibility: hidden;
   display: flex; flex-direction: column; justify-content: center;
   padding: 0 clamp(1.5rem, 8vw, 8rem);
@@ -333,11 +333,19 @@ button { background: none; border: none; color: inherit; font: inherit; cursor: 
   position: absolute; top: 1.6rem; left: 2rem; z-index: 1;
   font-family: "Shippori Mincho B1", Georgia, serif; font-size: 1.4rem; letter-spacing: 0.2em; color: var(--accent);
 }
-.panel-links { position: absolute; top: 1.6rem; right: 2rem; z-index: 1; }
+/* card top row — flex so idx / links / live can never overlap */
+.panel-top {
+  position: absolute; top: 1.3rem; left: 2rem; right: 2rem; z-index: 1;
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 0.8rem; flex-wrap: wrap;
+}
+.panel-top .panel-idx { position: static; top: auto; left: auto; }
+.panel-top-right { display: flex; align-items: center; gap: 1.3rem; flex-wrap: wrap; justify-content: flex-end; font-size: 0.7rem; letter-spacing: 0.22em; }
+.panel-top-right a { color: var(--ink); transition: color .3s; white-space: nowrap; }
+.panel-top-right a:hover { color: var(--accent); }
 .panel-live {
-  position: absolute; top: 1.4rem; right: 1.8rem; z-index: 1;
-  font-size: 0.6rem; letter-spacing: 0.22em; color: var(--on-accent); background: var(--accent);
-  padding: 0.35rem 0.8rem; border-radius: 999px; font-weight: 600;
+  position: static; font-size: 0.6rem; letter-spacing: 0.22em; color: var(--on-accent);
+  background: var(--accent); padding: 0.35rem 0.8rem; border-radius: 999px; font-weight: 600;
 }
 a.panel-live:hover { filter: brightness(1.1); }
 .panel h3 { font-family: "Shippori Mincho B1", Georgia, serif; font-size: clamp(1.6rem, 3vw, 2.6rem); font-weight: 700; line-height: 1.1; margin-bottom: 0.7rem; }
@@ -347,10 +355,6 @@ a.panel-live:hover { filter: brightness(1.1); }
   font-size: 0.6rem; letter-spacing: 0.14em; color: var(--muted);
   border: 1px solid var(--faint); padding: 0.3rem 0.7rem; border-radius: 999px;
 }
-.panel-links { display: flex; gap: 1.6rem; font-size: 0.7rem; letter-spacing: 0.22em; }
-.panel-links a { color: var(--ink); transition: color .3s; }
-.panel-links a:hover { color: var(--accent); }
-.panel-links .ghost { color: var(--faint); }
 
 /* per-panel art — theme-aware pastels over base washes */
 .art-a { background:
@@ -489,14 +493,20 @@ a.panel-live:hover { filter: brightness(1.1); }
 }
 @media (max-width: 720px) {
   .nav { padding: 1.1rem 1.3rem; }
-  .hero { min-height: 560px; }
-  .hero-title { font-size: clamp(2.2rem, 12vw, 4rem); }
-  .hero-content { padding: 0 1.2rem 2rem; }
+  .hero { min-height: 520px; }
+  .hero-title { font-size: clamp(2rem, 11vw, 3.6rem); }
+  .hero-content { padding: 0 1rem 1.6rem; }
   .hero-meta { gap: 1rem; }
-  .btn { padding: .8rem 1.2rem; font-size: .65rem; }
+  .btn { padding: .7rem 1rem; font-size: .62rem; }
+  #webgl { opacity: .85; }
   .sound-label { display: none; }
   .work-track { flex-direction: column; }
   .panel { width: 100%; height: auto; min-height: 280px; }
+  .panel-top { top: 1rem; left: 1.1rem; right: 1.1rem; gap: 0.5rem; }
+  .panel-top .panel-idx { font-size: 1rem; }
+  .panel-top-right { gap: 0.9rem; font-size: 0.62rem; }
+  .panel-body { padding: 1.4rem 1.2rem; }
+  .panel h3 { font-size: 1.45rem; }
   .hero-meta { flex-direction: column; align-items: flex-start; }
   .hm-right { align-items: flex-start; }
   .hero-roles { justify-content: flex-start; }

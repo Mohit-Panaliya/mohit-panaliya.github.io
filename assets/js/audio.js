@@ -20,7 +20,7 @@
     /* Ambient: detuned drone + filtered air noise, breathing LFO */
     _buildAmbient() {
       const ctx = this.ctx, out = this.master;
-      const droneGain = ctx.createGain(); droneGain.gain.value = 0.16;
+      const droneGain = ctx.createGain(); droneGain.gain.value = 0.09;
       const filter = ctx.createBiquadFilter();
       filter.type = "lowpass"; filter.frequency.value = 320; filter.Q.value = 0.8;
       droneGain.connect(filter); filter.connect(out);
@@ -50,24 +50,79 @@
       noise.connect(bp); bp.connect(ng); ng.connect(out); noise.start();
       this._nodes.push(noise, nlfo);
 
-      /* koto-ish pentatonic plucks, sparse and random (D minor pentatonic) */
-      const NOTES = [293.66, 349.23, 392, 440, 523.25, 587.33];
-      this._pluckTimer = setInterval(() => {
-        if (!this.enabled || document.hidden) return;
-        if (Math.random() < 0.45) return;
-        const f = NOTES[(Math.random() * NOTES.length) | 0];
-        const now = this.ctx.currentTime;
-        const o = this.ctx.createOscillator(); o.type = "triangle"; o.frequency.value = f;
-        const o2 = this.ctx.createOscillator(); o2.type = "sine"; o2.frequency.value = f * 2.01;
-        const lp = this.ctx.createBiquadFilter(); lp.type = "lowpass"; lp.frequency.value = 1800;
-        const g = this.ctx.createGain();
+      /* ── felt piano — soft Japanese piano with delay (間) ── */
+      /* spacious feedback delay for ma */
+      const dly = ctx.createDelay(1.2); dly.delayTime.value = 0.42;
+      const fb = ctx.createGain(); fb.gain.value = 0.38;
+      const dlp = ctx.createBiquadFilter(); dlp.type = "lowpass"; dlp.frequency.value = 1600;
+      const wet = ctx.createGain(); wet.gain.value = 0.5;
+      dly.connect(dlp); dlp.connect(fb); fb.connect(dly);
+      dly.connect(wet); wet.connect(out);
+      this._pianoBus = ctx.createGain(); this._pianoBus.gain.value = 1;
+      this._pianoBus.connect(out);
+      this._pianoBus.connect(dly);
+
+      /* D minor pentatonic across two octaves, plus a fragment of
+         the "Sakura Sakura" melody (A A B · A A B · A B C5 B A)
+         that surfaces every few phrases */
+      const PENT = [293.66, 349.23, 392, 440, 523.25, 587.33, 698.46, 783.99];
+      const SAKURA = [440, 440, 493.88, 0, 440, 440, 493.88, 0, 440, 493.88, 523.25, 493.88, 440, 493.88];
+      let phrase = 0;
+
+      const note = (f, vel) => {
+        const now = ctx.currentTime;
+        const o1 = ctx.createOscillator(); o1.type = "sine"; o1.frequency.value = f;
+        const o2 = ctx.createOscillator(); o2.type = "triangle"; o2.frequency.value = f * 2.0;
+        const o3 = ctx.createOscillator(); o3.type = "sine"; o3.frequency.value = f * 3.01;
+        const g1 = ctx.createGain(); g1.gain.value = 1;
+        const g2 = ctx.createGain(); g2.gain.value = 0.18;
+        const g3 = ctx.createGain(); g3.gain.value = 0.05;
+        /* felt-piano tone: warm lowpass, soft touch, long natural decay */
+        const lp = ctx.createBiquadFilter(); lp.type = "lowpass";
+        lp.frequency.setValueAtTime(2600, now);
+        lp.frequency.exponentialRampToValueAtTime(600, now + 2.8);
+        const g = ctx.createGain();
         g.gain.setValueAtTime(0.0001, now);
-        g.gain.exponentialRampToValueAtTime(0.05, now + 0.015);
-        g.gain.exponentialRampToValueAtTime(0.0001, now + 1.4);
-        const g2 = this.ctx.createGain(); g2.gain.value = 0.25;
-        o.connect(lp); o2.connect(g2); g2.connect(lp); lp.connect(g); g.connect(this.master);
-        o.start(now); o2.start(now); o.stop(now + 1.5); o2.stop(now + 1.5);
-      }, 2600);
+        g.gain.exponentialRampToValueAtTime(vel, now + 0.012); /* soft hammer */
+        g.gain.exponentialRampToValueAtTime(0.0001, now + 3.8); /* ringing decay */
+        o1.connect(g1); o2.connect(g2); o3.connect(g3);
+        g1.connect(lp); g2.connect(lp); g3.connect(lp);
+        lp.connect(g); g.connect(this._pianoBus);
+        o1.start(now); o2.start(now); o3.start(now);
+        o1.stop(now + 4); o2.stop(now + 4); o3.stop(now + 4);
+      };
+
+      /* generative phrasing — sparse, breathing, never busy */
+      this._pianoToken = (this._pianoToken || 0) + 1;
+      const token = this._pianoToken;
+      const schedule = () => {
+        if (this._pianoToken !== token) return; /* stopped */
+        if (!this.enabled || document.hidden) {
+          this._pianoTimer = setTimeout(schedule, 3000);
+          return;
+        }
+        phrase++;
+        if (phrase % 5 === 0) {
+          /* the sakura motif, unhurried */
+          let i = 0;
+          const step = () => {
+            if (this._pianoToken !== token) return;
+            const f = SAKURA[i++];
+            if (f) note(f, 0.038 + Math.random() * 0.012);
+            if (i < SAKURA.length) this._pianoTimer = setTimeout(step, f ? 620 : 900);
+          };
+          step();
+          this._pianoTimer = setTimeout(schedule, 12500);
+        } else {
+          /* one or two gentle pentatonic notes */
+          const n = Math.random() < 0.35 ? 2 : 1;
+          note(PENT[(Math.random() * PENT.length) | 0], 0.035 + Math.random() * 0.02);
+          if (n === 2) this._pianoTimer = setTimeout(() =>
+            note(PENT[(Math.random() * PENT.length) | 0], 0.03 + Math.random() * 0.015), 480);
+          this._pianoTimer = setTimeout(schedule, 3200 + Math.random() * 3800);
+        }
+      };
+      this._pianoTimer = setTimeout(schedule, 1200);
     },
 
     toggle(force) {
@@ -83,7 +138,9 @@
         this.enabled = false;
         this.master.gain.cancelScheduledValues(this.ctx.currentTime);
         this.master.gain.linearRampToValueAtTime(0, this.ctx.currentTime + 0.5);
-        clearInterval(this._pluckTimer);
+        /* silence the piano phrasing */
+        this._pianoToken = (this._pianoToken || 0) + 1;
+        clearTimeout(this._pianoTimer);
       }
       try { localStorage.setItem("mp-sound", want ? "1" : "0"); } catch (e) {}
       document.documentElement.classList.toggle("sound-on", this.enabled);

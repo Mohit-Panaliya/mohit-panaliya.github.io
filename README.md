@@ -28,17 +28,19 @@ Open http://localhost:8080.
 
 ```
 index.html            — structure & content
+resume.html           — printable résumé (live GitHub projects, Print/Save PDF)
 assets/css/style.css  — design system + responsive + reduced-motion
-assets/js/audio.js    — WebAudio engine (ambient drone + UI blips, opt-in)
+assets/js/audio.js    — WebAudio engine (ambient drone + koto plucks, opt-in)
 assets/js/data.js     — curated copy + offline snapshot
 assets/js/github.js   — runtime GitHub REST layer
-assets/js/scene.js    — Three.js hero (importmap ES module)
-assets/js/app.js      — Lenis + GSAP choreography
-CNAME                 — mohit-panaliya.js.org
+assets/js/petals.js   — 2D falling petals & leaves canvas overlay
+assets/js/scene.js    — Three.js hero: GLB cherry tree, moon, 3D petals
+assets/js/app.js      — Lenis + GSAP choreography + theme toggle
+assets/models/        — flowering-cherry-tree.glb
 ```
 
 ## Deploy
 
-GitHub Pages, `main` branch root. Custom domain via `CNAME` → mohit-panaliya.js.org.
+GitHub Pages, `main` branch root — every push to `main` redeploys automatically.
 
 © Mohit Panaliya
