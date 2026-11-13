@@ -58,7 +58,7 @@
       const wet = ctx.createGain(); wet.gain.value = 0.5;
       dly.connect(dlp); dlp.connect(fb); fb.connect(dly);
       dly.connect(wet); wet.connect(out);
-      this._pianoBus = ctx.createGain(); this._pianoBus.gain.value = 1;
+      this._pianoBus = ctx.createGain(); this._pianoBus.gain.value = 1.6;
       this._pianoBus.connect(out);
       this._pianoBus.connect(dly);
 
@@ -108,7 +108,7 @@
           const step = () => {
             if (this._pianoToken !== token) return;
             const f = SAKURA[i++];
-            if (f) note(f, 0.038 + Math.random() * 0.012);
+            if (f) note(f, 0.08 + Math.random() * 0.02);
             if (i < SAKURA.length) this._pianoTimer = setTimeout(step, f ? 620 : 900);
           };
           step();
@@ -116,9 +116,9 @@
         } else {
           /* one or two gentle pentatonic notes */
           const n = Math.random() < 0.35 ? 2 : 1;
-          note(PENT[(Math.random() * PENT.length) | 0], 0.035 + Math.random() * 0.02);
+          note(PENT[(Math.random() * PENT.length) | 0], 0.07 + Math.random() * 0.03);
           if (n === 2) this._pianoTimer = setTimeout(() =>
-            note(PENT[(Math.random() * PENT.length) | 0], 0.03 + Math.random() * 0.015), 480);
+            note(PENT[(Math.random() * PENT.length) | 0], 0.06 + Math.random() * 0.02), 480);
           this._pianoTimer = setTimeout(schedule, 3200 + Math.random() * 3800);
         }
       };
